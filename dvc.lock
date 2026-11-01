@@ -1,0 +1,86 @@
+schema: '2.0'
+stages:
+  1_data_ingestion_validation:
+    cmd: python src/1_data_ingestion_validation.py
+    deps:
+    - path: src/1_data_ingestion_validation.py
+      hash: md5
+      md5: 0a183ad76168d3e77b15883701ccb1c4
+      size: 2614
+    outs:
+    - path: data/raw/dataset.csv
+      hash: md5
+      md5: e2727d25f2d2ef8d2735abe99540ec51
+      size: 1444170
+  2_preprocessing_eda:
+    cmd: python src/2_preprocessing_eda.py
+    deps:
+    - path: data/raw/dataset.csv
+      hash: md5
+      md5: e2727d25f2d2ef8d2735abe99540ec51
+      size: 1444170
+    - path: src/2_preprocessing_eda.py
+      hash: md5
+      md5: 02f3e2c687d88b5ba9402ccd950ec2f4
+      size: 3553
+    outs:
+    - path: data/processed/cleaned_data.csv
+      hash: md5
+      md5: e2727d25f2d2ef8d2735abe99540ec51
+      size: 1444170
+  3_feature_engineering_splitting:
+    cmd: python src/3_feature_engineering_splitting.py
+    deps:
+    - path: data/processed/cleaned_data.csv
+      hash: md5
+      md5: e2727d25f2d2ef8d2735abe99540ec51
+      size: 1444170
+    - path: src/3_feature_engineering_splitting.py
+      hash: md5
+      md5: 2b17578438215fe7f1fbb6cedbcb931e
+      size: 2998
+    outs:
+    - path: data/processed/engineered_data.csv
+      hash: md5
+      md5: e2727d25f2d2ef8d2735abe99540ec51
+      size: 1444170
+  4_model_training.py:
+    cmd: python src/4_model_training.py
+    deps:
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 6fc18bd3a73fb29804f7b3c1d49d98f7
+      size: 1010575
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 78e6b95ac0a752310aa52c373ae42519
+      size: 162274
+    - path: src/4_model_training.py
+      hash: md5
+      md5: 1bbf5c2543edee0227cfd24cc6dddb8e
+      size: 3335
+    outs:
+    - path: model.pkl
+      hash: md5
+      md5: baad67e1839921e2a9f67403071d7e89
+      size: 4783251
+  5_evaluation_prediction:
+    cmd: python src/5_evaluation_prediction.py
+    deps:
+    - path: data/processed/X_test.csv
+      hash: md5
+      md5: b6c9af27344fd92bb7e5a982d82b56a1
+      size: 251530
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: 522f50a9fa80cb18b554f31ef582beff
+      size: 40570
+    - path: src/5_evaluation_prediction.py
+      hash: md5
+      md5: fb9d5a12712ff0e7a285d2b079f4be40
+      size: 3310
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: c31378e48dff8efc636aaa7e95bde2aa
+      size: 133

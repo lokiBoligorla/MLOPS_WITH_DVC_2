@@ -1,0 +1,14 @@
+[
+    "num__longitude",
+    "num__latitude",
+    "num__housing_median_age",
+    "num__total_rooms",
+    "num__total_bedrooms",
+    "num__population",
+    "num__households",
+    "num__median_income",
+    "cat__ocean_proximity_<1H OCEAN",
+    "cat__ocean_proximity_INLAND",
+    "cat__ocean_proximity_NEAR BAY",
+    "cat__ocean_proximity_NEAR OCEAN"
+]

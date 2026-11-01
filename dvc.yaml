@@ -1,0 +1,49 @@
+stages:
+  1_data_ingestion_validation: 
+    cmd : python src/1_data_ingestion_validation.py
+
+    deps:
+        - src/1_data_ingestion_validation.py
+    outs: 
+         - data/raw/dataset.csv    
+
+  2_preprocessing_eda:
+    cmd :  python src/2_preprocessing_eda.py
+
+    deps:
+     - src/2_preprocessing_eda.py
+     - data/raw/dataset.csv
+    outs:
+     - data/processed/cleaned_data.csv   
+
+
+  3_feature_engineering_splitting:
+    cmd :  python src/3_feature_engineering_splitting.py
+
+    deps:
+     - src/3_feature_engineering_splitting.py
+     - data/processed/cleaned_data.csv
+    outs:
+     - data/processed/engineered_data.csv  
+
+
+  4_model_training.py:
+    cmd :  python src/4_model_training.py
+
+    deps:
+     - src/4_model_training.py
+     - data/processed/X_train.csv
+     - data/processed/y_train.csv
+    outs:
+     - model.pkl
+     
+  5_evaluation_prediction:
+    cmd :  python src/5_evaluation_prediction.py
+
+    deps:
+     - src/5_evaluation_prediction.py
+     - data/processed/X_test.csv
+     - data/processed/y_test.csv
+    outs:
+     - metrics.json
+     
